@@ -12,7 +12,7 @@ import {
   Archivo_500Medium,
   Archivo_600SemiBold,
 } from "@expo-google-fonts/archivo";
-import theme from "./src/screens/Home/styles/theme";
+import theme from "./src/styles/theme";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
