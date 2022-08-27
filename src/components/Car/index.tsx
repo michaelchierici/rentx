@@ -1,4 +1,5 @@
 import React from "react";
+import { TouchableOpacityProps } from "react-native";
 import Gasoline from "../../assets/gasoline.svg";
 import {
   About,
@@ -13,7 +14,7 @@ import {
   Type,
 } from "./styles";
 
-interface CarData {
+interface CarData extends TouchableOpacityProps {
   brand?: string;
   name?: string;
   rent: {
@@ -25,11 +26,12 @@ interface CarData {
 
 interface Props {
   data: CarData;
+  onPress?: () => void;
 }
 
-const Car = ({ data }: Props) => {
+const Car = ({ data, onPress, ...rest }: Props) => {
   return (
-    <Container>
+    <Container {...rest} onPress={onPress}>
       <Details>
         <Brand>{data.brand}</Brand>
         <Name>{data.name}</Name>
