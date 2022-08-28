@@ -1,5 +1,6 @@
 import React from "react";
-import { TouchableOpacityProps } from "react-native";
+import { CarDTO } from "../../dtos/CarDTO";
+
 import Gasoline from "../../assets/gasoline.svg";
 import {
   About,
@@ -13,23 +14,15 @@ import {
   Rent,
   Type,
 } from "./styles";
-
-interface CarData extends TouchableOpacityProps {
-  brand?: string;
-  name?: string;
-  rent: {
-    period?: string;
-    price?: number;
-  };
-  thumbnail?: string;
-}
+import { getAccessoriesIcons } from "../../utils/getAccessoriesIcons";
 
 interface Props {
-  data: CarData;
+  data: CarDTO;
   onPress?: () => void;
 }
 
 const Car = ({ data, onPress, ...rest }: Props) => {
+  const MotorIcon = getAccessoriesIcons(data.fuel_type);
   return (
     <Container {...rest} onPress={onPress}>
       <Details>
@@ -43,7 +36,7 @@ const Car = ({ data, onPress, ...rest }: Props) => {
           </Rent>
 
           <Type>
-            <Gasoline />
+            <MotorIcon />
           </Type>
         </About>
       </Details>

@@ -2,9 +2,11 @@ import React from "react";
 import {
   Calendar as CustomCalendar,
   LocaleConfig,
+  DateCallbackHandler,
 } from "react-native-calendars";
 import { useTheme } from "styled-components";
 import { Feather } from "@expo/vector-icons";
+import { generateInterval } from "./generateInterval";
 
 LocaleConfig.locales["pt-br"] = {
   monthNames: [
@@ -50,7 +52,29 @@ LocaleConfig.locales["pt-br"] = {
 
 LocaleConfig.defaultLocale = "pt-br";
 
-const Calendars = () => {
+interface MarkedDateProps {
+  [date: string]: {
+    color: string;
+    textColor: string;
+    disabled?: boolean;
+    disabledTouchEvent?: boolean;
+  };
+}
+
+interface CalendarProps {
+  markedDates: MarkedDateProps;
+  onDayPress: DateCallbackHandler;
+}
+
+interface DayProps {
+  dateString: string;
+  day: number;
+  month: number;
+  year: number;
+  timeStamp: number;
+}
+
+const Calendars = ({ markedDates, onDayPress }: CalendarProps) => {
   const theme = useTheme();
   return (
     <CustomCalendar
@@ -82,8 +106,11 @@ const Calendars = () => {
       }}
       firstDay={1}
       minDate={String(new Date())}
+      markingType="period"
+      markedDates={markedDates}
+      onDayPress={onDayPress}
     />
   );
 };
 
-export default Calendars;
+export { Calendars, MarkedDateProps, DayProps, generateInterval };

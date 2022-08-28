@@ -3,17 +3,18 @@ import {
   useNavigation,
   ParamListBase,
   NavigationProp,
+  useRoute,
 } from "@react-navigation/native";
 import Acessory from "../../components/Acessory";
 import BackButton from "../../components/BackButton";
 import ImageSlider from "../../components/ImageSlider";
 
-import SpeedSvg from "../../assets/speed.svg";
-import AccelerationSvg from "../../assets/acceleration.svg";
-import ForceSvg from "../../assets/force.svg";
-import GasolineSvg from "../../assets/gasoline.svg";
-import ExchangeSvg from "../../assets/exchange.svg";
-import PeopleSvg from "../../assets/people.svg";
+import speed from "../../assets/speed.svg";
+import acceleration from "../../assets/acceleration.svg";
+import force from "../../assets/force.svg";
+import gasoline from "../../assets/gasoline.svg";
+import exchange from "../../assets/exchange.svg";
+import people from "../../assets/people.svg";
 
 import {
   CarImages,
@@ -32,50 +33,56 @@ import {
   Footer,
 } from "./styles";
 import Button from "../../components/Button";
+import { CarDTO } from "../../dtos/CarDTO";
+import { getAccessoriesIcons } from "../../utils/getAccessoriesIcons";
+
+interface Params {
+  car: CarDTO;
+}
 
 const CarDetails = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const route = useRoute();
+  const { car } = route.params as Params;
 
   function handleConfirmRental() {
-    navigation.navigate("Schedules");
+    navigation.navigate("Schedules", { car });
+  }
+
+  function handleGoBack() {
+    navigation.goBack();
   }
 
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleGoBack} />
       </Header>
       <CarImages>
-        <ImageSlider
-          imagesUrl={[
-            "https://o.remove.bg/downloads/e071665c-d507-40a5-9eb0-d7d489301fa4/audi-png-picture-5a228075ee1b68.9154536215122105499753-removebg-preview.png",
-          ]}
-        />
+        <ImageSlider imagesUrl={car.photos} />
       </CarImages>
       <Content>
         <Details>
           <Description>
-            <Brand>Lamborghi</Brand>
-            <Name>Hurrican</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>R$ 580</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>R${car.rent.price}</Price>
           </Rent>
         </Details>
         <Acessories>
-          <Acessory name="380km/h" icon={SpeedSvg} />
-          <Acessory name="3.2s" icon={AccelerationSvg} />
-          <Acessory name="800 HP" icon={ForceSvg} />
-          <Acessory name="Gasolina" icon={GasolineSvg} />
-          <Acessory name="Auto" icon={ExchangeSvg} />
-          <Acessory name="2 pessoas" icon={PeopleSvg} />
+          {car.accessories.map((accessory) => (
+            <Acessory
+              key={accessory.type}
+              name={accessory.name}
+              icon={getAccessoriesIcons(accessory.type)}
+            />
+          ))}
         </Acessories>
 
-        <About>
-          lorem ipsum dolor sit amet, consectetur adip lorem ipsum dolor sit
-          amet lorem, consectetur adip lorem ipsum dolor sit
-        </About>
+        <About>{car.about}</About>
       </Content>
 
       <Footer>

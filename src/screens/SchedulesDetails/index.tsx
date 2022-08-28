@@ -57,10 +57,14 @@ const SchedulesDetails = () => {
     navigation.navigate("Complete");
   }
 
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleGoBack} />
       </Header>
       <CarImages>
         <ImageSlider
