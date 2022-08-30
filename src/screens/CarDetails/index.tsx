@@ -35,6 +35,14 @@ import {
 import Button from "../../components/Button";
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoriesIcons } from "../../utils/getAccessoriesIcons";
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
+import { StatusBar } from "react-native";
 
 interface Params {
   car: CarDTO;
@@ -44,6 +52,22 @@ const CarDetails = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const route = useRoute();
   const { car } = route.params as Params;
+
+  const scrollY = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollY.value = event.contentOffset.y;
+  });
+
+  const headerStyle = useAnimatedStyle(() => {
+    return {
+      height: interpolate(
+        scrollY.value,
+        [0, 200],
+        [200, 70],
+        Extrapolate.CLAMP
+      ),
+    };
+  });
 
   function handleConfirmRental() {
     navigation.navigate("Schedules", { car });
@@ -55,13 +79,27 @@ const CarDetails = () => {
 
   return (
     <Container>
-      <Header>
-        <BackButton onPress={handleGoBack} />
-      </Header>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="transparent"
+      />
+      <Animated.View style={[headerStyle]}>
+        <Header>
+          <BackButton onPress={handleGoBack} />
+        </Header>
+      </Animated.View>
       <CarImages>
         <ImageSlider imagesUrl={car.photos} />
       </CarImages>
-      <Content>
+      <Animated.ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingTop: 20,
+          alignItems: "center",
+        }}
+        onScroll={scrollHandler}
+      >
         <Details>
           <Description>
             <Brand>{car.brand}</Brand>
@@ -83,7 +121,10 @@ const CarDetails = () => {
         </Acessories>
 
         <About>{car.about}</About>
-      </Content>
+        <About>{car.about}</About>
+        <About>{car.about}</About>
+        <About>{car.about}</About>
+      </Animated.ScrollView>
 
       <Footer>
         <Button

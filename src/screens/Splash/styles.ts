@@ -7,3 +7,5 @@ export const Container = styled.View`
 
   background-color: ${({ theme }) => theme.colors.header};
 `;
+
+export const Button = styled.TouchableOpacity``;
