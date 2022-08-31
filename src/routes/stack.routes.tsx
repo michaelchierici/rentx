@@ -20,7 +20,11 @@ const StackRoutes = () => {
     >
       <Screen name="Splash" component={Splash} />
 
-      <Screen name="Home" component={Home} />
+      <Screen
+        name="Home"
+        component={Home}
+        options={{ gestureEnabled: false }}
+      />
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Schedules" component={Schedules} />
       <Screen name="Details" component={SchedulesDetails} />

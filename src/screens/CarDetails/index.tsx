@@ -32,6 +32,7 @@ import {
   Acessories,
   Footer,
 } from "./styles";
+
 import Button from "../../components/Button";
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoriesIcons } from "../../utils/getAccessoriesIcons";
@@ -69,6 +70,12 @@ const CarDetails = () => {
     };
   });
 
+  const sliderCarsStyleAnimation = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(scrollY.value, [0, 150], [1, 0], Extrapolate.CLAMP),
+    };
+  });
+
   function handleConfirmRental() {
     navigation.navigate("Schedules", { car });
   }
@@ -89,16 +96,21 @@ const CarDetails = () => {
           <BackButton onPress={handleGoBack} />
         </Header>
       </Animated.View>
-      <CarImages>
-        <ImageSlider imagesUrl={car.photos} />
-      </CarImages>
+
+      <Animated.View style={sliderCarsStyleAnimation}>
+        <CarImages>
+          <ImageSlider imagesUrl={car.photos} />
+        </CarImages>
+      </Animated.View>
+
       <Animated.ScrollView
         contentContainerStyle={{
           paddingHorizontal: 24,
-          paddingTop: 20,
           alignItems: "center",
         }}
         onScroll={scrollHandler}
+        showsVerticalScrollIndicator={false}
+        scrollEventThrottle={16}
       >
         <Details>
           <Description>
@@ -137,3 +149,14 @@ const CarDetails = () => {
 };
 
 export default CarDetails;
+
+// const styles = StyleSheet.create({
+//   header: {
+//     position: "absolute",
+//     overflow: "hidden",
+//     zIndex: 1,
+//   },
+//   back: {
+//     marginTop: 24,
+//   },
+// });

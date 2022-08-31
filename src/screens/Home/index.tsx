@@ -5,7 +5,7 @@ import {
   ParamListBase,
   NavigationProp,
 } from "@react-navigation/native";
-import { StatusBar } from "react-native";
+import { StatusBar, BackHandler } from "react-native";
 import {
   CarList,
   Container,
@@ -50,6 +50,12 @@ export default function Home() {
     navigation.navigate("MyCars");
   }
 
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      return true;
+    });
+  }, []);
+
   return (
     <Container>
       <StatusBar
@@ -60,7 +66,7 @@ export default function Home() {
       <Header>
         <HeaderContent>
           <Logo width={RFValue(108)} height={RFValue(12)} />
-          <TotalCars>Total de {cars.length} carros</TotalCars>
+          {!loading && <TotalCars>Total de {cars.length} carros</TotalCars>}
         </HeaderContent>
       </Header>
 

@@ -15,7 +15,12 @@ export const Header = styled.View`
   margin-left: 24px;
 `;
 
-export const CarImages = styled.View``;
+export const CarImages = styled.View`
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  bottom: 0;
+`;
 
 export const Content = styled.ScrollView.attrs({
   contentContainerStyle: {
