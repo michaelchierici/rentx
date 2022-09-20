@@ -1,5 +1,9 @@
 import { RFValue } from "react-native-responsive-fontsize";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
+
+interface Props {
+  focused: boolean;
+}
 
 export const Container = styled.View`
   flex-direction: row;
@@ -15,7 +19,7 @@ export const IconConainter = styled.View`
   margin-right: 2px;
 `;
 
-export const InputText = styled.TextInput`
+export const InputText = styled.TextInput<Props>`
   flex: 1;
 
   background-color: ${({ theme }) => theme.colors.background_secondary};
@@ -25,4 +29,13 @@ export const InputText = styled.TextInput`
   font-size: ${RFValue(15)}px;
 
   padding: 0 23px;
+
+  ${({ focused, theme }) =>
+    focused &&
+    css`
+      border-bottom-width: 2px;
+      border-bottom-color: ${theme.colors.main};
+    `};
 `;
+
+export const VisibilityButton = styled.TouchableOpacity.attrs({})``;
