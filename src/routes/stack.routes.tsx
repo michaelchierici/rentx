@@ -8,6 +8,7 @@ import SchedulesDetails from "../screens/SchedulesDetails";
 import MyCars from "../screens/MyCars";
 import Splash from "../screens/Splash";
 import Login from "../screens/Login";
+import FirstStep from "../screens/SignUp/FirstStep";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ const StackRoutes = () => {
         component={Home}
         options={{ gestureEnabled: false }}
       />
+      <Screen name="FirstStep" component={FirstStep} />
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Schedules" component={Schedules} />
       <Screen name="Details" component={SchedulesDetails} />
