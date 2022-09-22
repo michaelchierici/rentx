@@ -81,7 +81,14 @@ const SchedulesDetails = () => {
         id: car.id,
         unavailable_dates,
       })
-      .then(() => navigation.navigate("Complete"))
+      .then(() =>
+        navigation.navigate("Confirmation", {
+          nextScreenRoute: "Home",
+          title: "Carro Alugado!",
+          message:
+            "Agora você só precisa ir\naté a concessionária\nda RENTX\npegar o seu automóvel",
+        })
+      )
       .catch((err) => {
         console.log(err);
       });

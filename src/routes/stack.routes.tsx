@@ -3,12 +3,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../screens/Home";
 import CarDetails from "../screens/CarDetails";
 import Schedules from "../screens/Schedules";
-import ScheduleComplete from "../screens/ScheduleComplete";
+import Confirmation from "../screens/Confirmation";
 import SchedulesDetails from "../screens/SchedulesDetails";
 import MyCars from "../screens/MyCars";
 import Splash from "../screens/Splash";
 import Login from "../screens/Login";
 import FirstStep from "../screens/SignUp/FirstStep";
+import SecondStep from "../screens/SignUp/SecondStep";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -28,10 +29,11 @@ const StackRoutes = () => {
         options={{ gestureEnabled: false }}
       />
       <Screen name="FirstStep" component={FirstStep} />
+      <Screen name="SecondStep" component={SecondStep} />
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Schedules" component={Schedules} />
       <Screen name="Details" component={SchedulesDetails} />
-      <Screen name="Complete" component={ScheduleComplete} />
+      <Screen name="Confirmation" component={Confirmation} />
       <Screen name="MyCars" component={MyCars} />
     </Navigator>
   );
