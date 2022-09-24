@@ -28,6 +28,7 @@ import {
 } from "./styles";
 
 import InputPassword from "../../../components/PasswordInput";
+import { api } from "../../../services/api";
 
 interface Params {
   user: {
@@ -51,7 +52,7 @@ const SecondStep = () => {
     navigation.goBack();
   }
 
-  function register() {
+  async function register() {
     if (!password || !passwordConfirm) {
       return Alert.alert("Informe sua senha e a confirmação");
     }
@@ -59,11 +60,24 @@ const SecondStep = () => {
     if (password !== passwordConfirm) {
       return Alert.alert("Senhas não são iguais");
     }
-    navigation.navigate("Confirmation", {
-      nextScreenRoute: "Login",
-      title: "Conta Criada",
-      message: "Agora é só fazer login\ne aproveitar!",
-    });
+
+    await api
+      .post("/users", {
+        name: user.name,
+        email: user.email,
+        password,
+        driver_license: user.driverLicense,
+      })
+      .then(() => {
+        navigation.navigate("Confirmation", {
+          nextScreenRoute: "Login",
+          title: "Conta Criada",
+          message: "Agora é só fazer login\ne aproveitar!",
+        });
+      })
+      .catch(() => {
+        Alert.alert("Não foi possível cadastrar, verifique os dados");
+      });
   }
 
   return (

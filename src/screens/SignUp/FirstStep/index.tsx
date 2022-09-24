@@ -25,6 +25,7 @@ import {
   SubTitle,
   Title,
 } from "./styles";
+import { useAuth } from "../../../hooks/auth";
 
 const FirstStep = () => {
   const [name, setName] = useState("");
@@ -32,6 +33,7 @@ const FirstStep = () => {
   const [driverLicense, setDriverLicense] = useState("");
 
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const { user } = useAuth();
 
   function handleGoBack() {
     navigation.goBack();

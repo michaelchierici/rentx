@@ -19,7 +19,7 @@ const StackRoutes = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Login"
+      initialRouteName="Home"
     >
       <Screen name="Login" component={Login} />
 
