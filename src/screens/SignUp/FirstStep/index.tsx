@@ -33,7 +33,6 @@ const FirstStep = () => {
   const [driverLicense, setDriverLicense] = useState("");
 
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-  const { user } = useAuth();
 
   function handleGoBack() {
     navigation.goBack();

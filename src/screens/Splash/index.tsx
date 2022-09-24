@@ -62,7 +62,7 @@ const Splash = () => {
   }, []);
 
   function startApp() {
-    navigation.navigate("Home");
+    navigation.navigate("Login");
   }
 
   return (
