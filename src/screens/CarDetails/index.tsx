@@ -9,18 +9,10 @@ import Acessory from "../../components/Acessory";
 import BackButton from "../../components/BackButton";
 import ImageSlider from "../../components/ImageSlider";
 
-import speed from "../../assets/speed.svg";
-import acceleration from "../../assets/acceleration.svg";
-import force from "../../assets/force.svg";
-import gasoline from "../../assets/gasoline.svg";
-import exchange from "../../assets/exchange.svg";
-import people from "../../assets/people.svg";
-
 import {
   CarImages,
   Container,
   Header,
-  Content,
   Details,
   Description,
   Brand,

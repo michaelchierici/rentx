@@ -32,7 +32,7 @@ export const HeaderTitle = styled.Text`
   color: ${({ theme }) => theme.colors.background_secondary};
 `;
 
-export const LogoutButton = styled.View``;
+export const LogoutButton = styled.TouchableOpacity``;
 
 export const PhotoContainer = styled.View`
   width: 180px;
