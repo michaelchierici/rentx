@@ -51,6 +51,7 @@ const InputPassword = ({ iconName, value, ...rest }: InputProps) => {
         onBlur={handleBlur}
         {...rest}
         secureTextEntry={isVisible}
+        autoCorrect={false}
       />
 
       <VisibilityButton onPress={handleVisibleChange}>
