@@ -18,10 +18,14 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchCars() {
       try {
         const response = await api.get("/cars");
-        setCars(response.data);
+        if (isMounted) {
+          setCars(response.data);
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -29,6 +33,9 @@ export default function Home() {
       }
     }
     fetchCars();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   function handleCartDetails(car: CarDTO) {
